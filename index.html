@@ -1,0 +1,1163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Triflez - OTP Code Generator Landing Deck</title>
+    <!-- Poppins & JetBrains Mono Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <style>
+      /* --- CSS SYSTEM PROPERTIES --- */
+      :root {
+        --color-primary: #0f172a; /* Solid monochrome slate */
+        --color-primary-dark: #020617; /* Solid black */
+        --color-primary-light: #f1f5f9; /* Super clean, premium light gray */
+        --color-slate-950: #020617;
+        --color-slate-900: #0f172a;
+        --color-slate-800: #1e293b;
+        --color-slate-700: #334155;
+        --color-slate-600: #475569;
+        --color-slate-400: #94a3b8;
+        --color-slate-200: #e2e8f0;
+        --color-slate-100: #f1f5f9;
+        --color-slate-50: #f8fafc;
+        --color-success: #0f172a; /* Monochrome success values */
+        --color-success-light: #f1f5f9;
+        --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.05),  0 2px 4px -2px rgb(0 0 0 / 0.05);
+        --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.06), 0 4px 6px -4px rgb(0 0 0 / 0.06);
+        --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+        --font-mono: 'Poppins', monospace;
+      }
+
+      /* Minimal custom scrollbars */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-slate-300) transparent;
+      }
+
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: var(--color-slate-300);
+        border-radius: 9999px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-slate-500);
+      }
+
+      body {
+        font-family: var(--font-sans);
+        color: var(--color-slate-800);
+        background-color: var(--color-slate-50);
+        line-height: 1.5;
+        overflow: hidden; /* Prevent global scrollbar */
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- GENERAL TYPOGRAPHY --- */
+      h1, h2, h3, h4 {
+        color: var(--color-slate-950);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        line-height: 1.25;
+      }
+
+      a {
+        color: var(--color-primary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+      }
+
+      a:hover {
+        color: var(--color-primary-dark);
+      }
+
+      /* --- FULLSCREEN PRESENTATION DECK STAGE --- */
+      .deck {
+        flex: 1;
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+        background-color: #ffffff;
+      }
+
+      /* --- SLIDES SYSTEM --- */
+      .slide {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 3.5rem 1.75rem 7.5rem 1.75rem; /* Large bottom padding keeps content clear of the fixed navigator */
+        overflow-y: auto; /* Enable scrollbars on individual slides */
+        opacity: 0;
+        transform: scale(0.99) translateY(10px);
+        transition: opacity 0.35s ease, transform 0.35s ease, display 0.35s allow-discrete;
+      }
+
+      .slide.active {
+        display: block;
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+
+      .slide-content-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1.5rem 0;
+      }
+
+      .slide-badge {
+        display: inline-flex;
+        padding: 0.25rem 0.75rem;
+        background-color: var(--color-primary-light);
+        color: var(--color-primary);
+        font-size: 0.75rem;
+        font-weight: 700;
+        border-radius: 9999px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
+      }
+
+      /* Slide 1: Welcome */
+      .welcome-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .welcome-heading {
+        font-size: clamp(2.25rem, 4.5vw, 3.25rem);
+        line-height: 1.15;
+        color: var(--color-slate-950);
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.03em;
+      }
+
+      .welcome-desc {
+        font-size: clamp(1rem, 2vw, 1.15rem);
+        color: var(--color-slate-600);
+        margin-bottom: 2.25rem;
+        line-height: 1.6;
+      }
+
+      /* Live Extension Mock Sandbox */
+      .simulator-card {
+        background: #ffffff;
+        border-radius: 1rem;
+        box-shadow: var(--shadow-lg), 0 20px 40px rgba(0,0,0,0.06);
+        border: 1px solid var(--color-slate-200);
+        overflow: hidden;
+        width: 100%;
+        max-width: 380px;
+        margin: 0 auto;
+        transition: transform 0.2s ease;
+      }
+
+      .sim-header {
+        background: var(--color-slate-900);
+        padding: 1rem 1.25rem;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .sim-sync-pill {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        background-color: rgba(15, 23, 42, 0.08);
+        color: var(--color-slate-800);
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+        border-radius: 1rem;
+        font-weight: 700;
+        border: 1px solid rgba(15, 23, 42, 0.15);
+      }
+
+      .sim-body {
+        padding: 1.25rem;
+        background-color: var(--color-slate-100);
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .sim-row {
+        background: white;
+        padding: 0.85rem 1rem;
+        border-radius: 0.6rem;
+        border: 1px solid rgba(0,0,0,0.03);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+      }
+
+      .sim-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        min-width: 0; /* Ensures long emails truncate elegantly instead of pushing layout */
+      }
+
+      .sim-issuer {
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--color-slate-400);
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .sim-account {
+        font-size: 0.8rem;
+        color: var(--color-slate-700);
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .sim-code {
+        font-family: var(--font-mono);
+        font-size: clamp(1.15rem, 3.5vw, 1.35rem);
+        font-weight: 700;
+        color: var(--color-primary);
+        letter-spacing: 0.03em;
+        margin-left: 0.5rem;
+        white-space: nowrap;
+      }
+
+      .sim-footer {
+        padding: 0.85rem 1.25rem;
+        border-top: 1px solid var(--color-slate-200);
+        background: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--color-slate-500);
+      }
+
+      .sim-ticker {
+        position: relative;
+        width: 22px;
+        height: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .sim-ticker svg {
+        transform: rotate(-90deg);
+        width: 22px;
+        height: 22px;
+      }
+
+      .sim-ticker circle.bg {
+        fill: none;
+        stroke: var(--color-slate-100);
+        stroke-width: 3;
+      }
+
+      .sim-ticker circle.bar {
+        fill: none;
+        stroke: var(--color-primary);
+        stroke-width: 3;
+        stroke-dasharray: 62.8;
+        stroke-dashoffset: 0;
+        transition: stroke-dashoffset 1s linear;
+      }
+
+      .sim-countdown {
+        position: absolute;
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        font-weight: 700;
+        color: var(--color-slate-500);
+      }
+
+      /* Slide 2: Features */
+      .features-heading {
+        font-size: clamp(1.85rem, 4vw, 2.5rem);
+        margin-bottom: 2.5rem;
+        text-align: center;
+        letter-spacing: -0.03em;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-top: 1rem;
+      }
+
+      .feature-box {
+        background-color: var(--color-slate-50);
+        border: 1px solid var(--color-slate-200);
+        padding: 2.25rem 1.75rem;
+        border-radius: 1rem;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .feature-box:hover {
+        transform: translateY(-4px);
+        border-color: var(--color-primary);
+        box-shadow: var(--shadow-md);
+      }
+
+      .feature-icon {
+        margin-bottom: 1.25rem;
+        font-size: 2rem;
+        display: block;
+      }
+
+      .feature-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        color: var(--color-slate-900);
+      }
+
+      .feature-text {
+        font-size: 0.95rem;
+        color: var(--color-slate-600);
+        line-height: 1.6;
+      }
+
+      /* Slide 3: Cloud transparency */
+      .transparency-split {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .transparency-header h2 {
+        font-size: clamp(1.85rem, 4vw, 2.5rem);
+        margin-bottom: 1.25rem;
+        letter-spacing: -0.03em;
+      }
+
+      .transparency-text {
+        color: var(--color-slate-600);
+        font-size: 1.05rem;
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+      }
+
+      .trans-item {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+        border-left: 3px solid var(--color-primary);
+      }
+
+      .trans-item h4 {
+        font-size: 1.1rem;
+        color: var(--color-slate-900);
+        margin-bottom: 0.4rem;
+      }
+
+      .trans-item p {
+        font-size: 0.95rem;
+        color: var(--color-slate-600);
+      }
+
+      /* Diagram */
+      .diag-bg {
+        background: var(--color-slate-50);
+        padding: 2rem;
+        border-radius: 1rem;
+        border: 1px solid var(--color-slate-200);
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+      }
+
+      .diag-title {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--color-slate-400);
+        letter-spacing: 0.05em;
+        margin-bottom: 0.25rem;
+      }
+
+      .diag-box {
+        background: white;
+        padding: 1rem;
+        border-radius: 0.6rem;
+        border: 1px solid var(--color-slate-200);
+        text-align: center;
+        font-size: 0.95rem;
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .diag-box.highlight {
+        background-color: var(--color-primary-light);
+        border-color: var(--color-primary);
+        color: var(--color-primary);
+      }
+
+      .diag-arrow {
+        text-align: center;
+        font-size: 0.8rem;
+        font-family: var(--font-mono);
+        color: var(--color-slate-400);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.1rem;
+      }
+
+      /* Slides 4 & 5: legal frameworks */
+      .legal-wrapper {
+        display: flex;
+        flex-direction: column;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .legal-header {
+        border-bottom: 1px solid var(--color-slate-200);
+        padding-bottom: 1.25rem;
+        margin-bottom: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .legal-header h2 {
+        font-size: clamp(1.85rem, 4vw, 2.5rem);
+        letter-spacing: -0.03em;
+      }
+
+      .legal-scroll-content {
+        font-size: 1rem;
+        color: var(--color-slate-700);
+        line-height: 1.75;
+      }
+
+      .legal-scroll-content h3 {
+        font-size: 1.25rem;
+        color: var(--color-slate-900);
+        margin: 2rem 0 0.75rem 0;
+      }
+
+      .legal-scroll-content p {
+        margin-bottom: 1.25rem;
+      }
+
+      .legal-scroll-content ul {
+        margin-bottom: 1.25rem;
+        padding-left: 1.5rem;
+      }
+
+      .legal-scroll-content li {
+        margin-bottom: 0.75rem;
+      }
+
+      .legal-callout {
+        background-color: var(--color-primary-light);
+        border-left: 4px solid var(--color-primary);
+        padding: 1.5rem;
+        border-radius: 0 0.5rem 0.5rem 0;
+        margin-bottom: 2.25rem;
+        color: var(--color-slate-800);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      /* --- DECK NAVIGATION CONTROLLER --- */
+      .deck-controls {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 75px;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid var(--color-slate-200);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 4rem;
+        z-index: 1000;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+      }
+
+      .controls-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 800;
+        color: var(--color-slate-900);
+        font-size: 1rem;
+      }
+
+      .dots-container {
+        display: flex;
+        gap: 0.6rem;
+      }
+
+      .dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background-color: var(--color-slate-200);
+        cursor: pointer;
+        transition: background-color 0.25s, transform 0.25s;
+        border: none;
+      }
+
+      .dot:hover {
+        background-color: var(--color-slate-400);
+      }
+
+      .dot.active {
+        background-color: var(--color-primary);
+        transform: scale(1.25);
+      }
+
+      .slide-num {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        color: var(--color-slate-500);
+        font-weight: 600;
+      }
+
+      .control-btns {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .control-btn {
+        background-color: var(--color-slate-100);
+        border: 1px solid var(--color-slate-200);
+        color: var(--color-slate-700);
+        padding: 0.55rem 1.2rem;
+        font-weight: 600;
+        font-size: 0.85rem;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .control-btn:hover:not(:disabled) {
+        background-color: var(--color-slate-200);
+        color: var(--color-slate-900);
+      }
+
+      .control-btn:disabled {
+        opacity: 0.35;
+        cursor: not-allowed;
+      }
+
+      /* --- KEYBOARD LEGEND FLOATER --- */
+      .kbd-hint {
+        position: fixed;
+        bottom: 95px;
+        right: 2rem;
+        background-color: var(--color-slate-900);
+        color: white;
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.72rem;
+        font-family: var(--font-mono);
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        opacity: 0.85;
+        transition: opacity 0.2s;
+        pointer-events: none;
+        z-index: 999;
+      }
+
+      .kbd-key {
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 0.1rem 0.35rem;
+        border-radius: 0.25rem;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+
+      /* --- RESPONSIVE MODIFIERS --- */
+      @media (max-width: 1024px) {
+        .welcome-grid {
+          gap: 2.5rem;
+        }
+
+        .transparency-split {
+          gap: 2.5rem;
+        }
+
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.5rem;
+        }
+
+        .deck-controls {
+          padding: 0 2.5rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .welcome-grid {
+          grid-template-columns: 1fr;
+          gap: 2.5rem;
+          text-align: center;
+        }
+
+        .welcome-heading {
+          margin-bottom: 1rem;
+        }
+
+        .welcome-desc {
+          margin-bottom: 2rem;
+        }
+
+        .slide-badge {
+          align-self: center;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 1.25rem;
+        }
+
+        .transparency-split {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        .slide {
+          padding: 2.25rem 1.25rem 6.5rem 1.25rem;
+        }
+
+        .deck-controls {
+          padding: 0 1.5rem;
+          height: 68px;
+        }
+
+        .controls-brand {
+          display: none; /* Free space by hiding logo logo on mobile */
+        }
+
+        .legal-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+
+        .kbd-hint {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .slide {
+          padding: 1.5rem 1rem 5.5rem 1rem;
+        }
+
+        .slide-content-container {
+          padding: 0.5rem 0;
+        }
+
+        .welcome-heading {
+          font-size: 1.75rem;
+        }
+
+        .welcome-desc {
+          font-size: 0.95rem;
+        }
+
+        .deck-controls {
+          padding: 0 1rem;
+          height: 60px;
+        }
+
+        .dots-container {
+          display: none; /* Hide slider dots on ultra narrow displays to prevent overlaps */
+        }
+
+        .control-btns {
+          gap: 0.5rem;
+        }
+
+        .control-btn {
+          padding: 0.45rem 0.85rem;
+          font-size: 0.8rem;
+        }
+
+        .diag-bg {
+          padding: 1.25rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- KEYBOARD NAV HINT -->
+    <div class="kbd-hint">
+      <span>Navigation</span>
+      <span class="kbd-key">&larr;</span>
+      <span class="kbd-key">&rarr;</span>
+      <span>keys</span>
+    </div>
+
+    <!-- MAIN SLIDEDECK STAGE (Fullscreen Canvas) -->
+    <main class="deck">
+      
+      <!-- SLIDE 1: WELCOME & INTERACTIVE PREVIEW -->
+      <div class="slide active" id="slide-1">
+        <div class="slide-content-container">
+          <div class="welcome-grid">
+            <div class="welcome-content">
+              <span class="slide-badge">Slide 1: Secure Architecture</span>
+              <h1 class="welcome-heading">Secure 2FA Authenticator with Automated Cloud Backup</h1>
+              <p class="welcome-desc">
+                Generate Time-Based One-Time Passwords (TOTP) securely inside your Chrome browser. Encrypt backup assets locally in your browser sandbox using secure AES-256 and sync directly and safely to your personal Google Drive storage space.
+              </p>
+              <div style="display: flex; gap: 1rem;">
+                <button onclick="goToSlide(2)" class="control-btn" style="background-color: var(--color-primary); color: white; border: none; padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 600; border-radius: 0.5rem; cursor: pointer;">
+                  Explore Core Features
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <!-- Simulator component representing the Extension Interface -->
+              <div class="simulator-card">
+                <div class="sim-header">
+                  <span>🔒 Triflez Chrome Applet</span>
+                  <div class="sim-sync-pill">● Connected: Google Drive</div>
+                </div>
+
+                <div class="sim-body">
+                  <div class="sim-row">
+                    <div class="sim-meta">
+                      <span class="sim-issuer">Google Cloud Admin</span>
+                      <span class="sim-account">oauth-verification</span>
+                    </div>
+                    <span class="sim-code" id="code-google">348 912</span>
+                  </div>
+
+                  <div class="sim-row">
+                    <div class="sim-meta">
+                      <span class="sim-issuer">GitHub Enterprise</span>
+                      <span class="sim-account">@triflez-developer</span>
+                    </div>
+                    <span class="sim-code" id="code-github">702 489</span>
+                  </div>
+
+                  <div class="sim-row">
+                    <div class="sim-meta">
+                      <span class="sim-issuer">Google Drive Sync</span>
+                      <span class="sim-account">Encrypted-Storage-Key</span>
+                    </div>
+                    <span class="sim-code" id="code-drive">116 830</span>
+                  </div>
+                </div>
+
+                <div class="sim-footer">
+                  <span>AES-256 Sealed Local Payload</span>
+                  <div class="sim-ticker">
+                    <svg>
+                      <circle class="bg" cx="11" cy="11" r="9"></circle>
+                      <circle class="bar" id="countdownCircle" cx="11" cy="11" r="9"></circle>
+                    </svg>
+                    <span class="sim-countdown" id="countdownTxt">30</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: FEATURES GRID -->
+      <div class="slide" id="slide-2">
+        <div class="slide-content-container">
+          <span class="slide-badge" style="display: block; width: max-content; margin: 0 auto 1rem auto;">Slide 2: Capabilities</span>
+          <h2 class="features-heading">Uncompromising Safety Features</h2>
+          
+          <div class="features-grid">
+            <div class="feature-box">
+              <span class="feature-icon">📱</span>
+              <h3 class="feature-title">Instant QR Sync</h3>
+              <p class="feature-text">
+                Directly capture setup QR matrices or enter raw hexadecimal base32 secret variables to initiate standard RFC 6238 TOTP synchronization schemas within seconds.
+              </p>
+            </div>
+
+            <div class="feature-box">
+              <span class="feature-icon">☁️</span>
+              <h3 class="feature-title">Personal Cloud Backups</h3>
+              <p class="feature-text">
+                Leverages isolated <code>drive.file</code> scope access capabilities to backup security definitions to your personal Google Drive profile. No middleman host parameters exist.
+              </p>
+            </div>
+
+            <div class="feature-box">
+              <span class="feature-icon">🔑</span>
+              <h3 class="feature-title">Client-Side Encryption</h3>
+              <p class="feature-text">
+                Cryptographic data remains sealed at rest using standard modern AES-256 protocols, salted local parameters, and robust hash sequences using your explicit Master Key credentials.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: GOOGLE DRIVE TRANSPARENCY -->
+      <div class="slide" id="slide-3">
+        <div class="slide-content-container">
+          <div class="transparency-split">
+            <div>
+              <span class="slide-badge">Slide 3: API Architecture</span>
+              <h2 style="font-size: 2.5rem; margin-bottom: 1rem; letter-spacing: -0.03em;">Isolated Google Drive Integration</h2>
+              <p class="transparency-text">
+                For Google Cloud Branding Verification, Triflez has been strictly designed to support transparent, client-side data sovereignty boundaries.
+              </p>
+
+              <div class="trans-item">
+                <h4>Minified Permissions Boundary</h4>
+                <p>We specifically target the <code>.../auth/drive.file</code> scope parameters. Our app can only view and manage directories and files generated natively by our client extension.</p>
+              </div>
+
+              <div class="trans-item">
+                <h4>No Developer Databases</h4>
+                <p>Authentication data occurs strictly between your browser extension container and Google API network endpoints. Our company operates zero database arrays.</p>
+              </div>
+
+              <div class="trans-item">
+                <h4>Peerless Cryptography</h4>
+                <p>Your authentication tokens are cryptographically sealed with PBKDF2 Master Key generation before cloud transportation occurs.</p>
+              </div>
+            </div>
+
+            <div>
+              <!-- Flow visualizer diagram -->
+              <div class="diag-bg">
+                <span class="diag-title">Strict Isolation Data Path</span>
+                <div class="diag-box highlight">
+                  💻 Triflez Chrome extension
+                </div>
+                <div class="diag-arrow">
+                  <span>AES-256 Encryption (Client-side)</span>
+                  <span>&darr;</span>
+                </div>
+                <div class="diag-box" style="border-color: var(--color-slate-400); color: var(--color-slate-900); background: var(--color-slate-50);">
+                  🔒 Encrypted Hash Payload (.json)
+                </div>
+                <div class="diag-arrow">
+                  <span>OAuth Tunnel (drive.file scope)</span>
+                  <span>&darr;</span>
+                </div>
+                <div class="diag-box">
+                  📁 Personal Google Drive Storage
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 4: PRIVACY POLICY (VERIFICATION FORMAL) -->
+      <div class="slide" id="slide-4">
+        <div class="slide-content-container">
+          <div class="legal-wrapper">
+            <span class="slide-badge">Slide 4: Privacy Framework</span>
+            <div class="legal-header">
+              <h2>Privacy Policy</h2>
+              <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-slate-400);">Last Revision: June 13, 2026</span>
+            </div>
+
+            <div class="legal-scroll-content">
+              <div class="legal-callout">
+                <strong>Google Verification Notice:</strong> This software specifically uses the <code>https://www.googleapis.com/auth/drive.file</code> scope strictly to persist highly secure backups. This program does not have permissions or technical utilities to query or modify other folders in your Google Drive cloud space.
+              </div>
+
+              <h3>1. Absolute Privacy Commitment</h3>
+              <p>
+                Triflez guarantees absolute data ownership. The application does not deploy remote analytical modules, capture identity parameters, or forward client token seeds. All operational components occur on your local web browser engine.
+              </p>
+
+              <h3>2. Safe Storage Protocols</h3>
+              <p>
+                Any seed configuration datasets entered into the user interface are instantly committed to Chrome's local isolated storage area, protected by highly robust AES-256 encryption. Your decryption credentials are never transmitted, persisted, or known by the developers.
+              </p>
+
+              <h3>3. Drive Storage Integration Parameters</h3>
+              <p>
+                The Drive API is exclusively integrated to provide robust recovery channels:
+              </p>
+              <ul>
+                <li>To format and construct an isolated JSON document inside your storage partition containing your encrypted credentials.</li>
+                <li>To parse this container file when restoration is requested by the user.</li>
+                <li>To perform timestamp audits to prevent local configurations from overwriting cloud records.</li>
+              </ul>
+
+              <h3>4. Zero Third-Party Routing</h3>
+              <p>
+                No telemetry variables, database setups, or user-specific records are collected, leased, or distributed. Triflez operates entirely independently of tracking servers or programmatic marketing profiles.
+              </p>
+
+              <h3>5. Core Inquiries</h3>
+              <p>
+                If you have questions regarding the structural isolation rules, database schemas, or cryptographic methodologies utilized, kindly coordinate with our verification compliance officer at <a href="mailto:support@triflez.com">support@triflez.com</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5: TERMS OF SERVICE (VERIFICATION FORMAL) -->
+      <div class="slide" id="slide-5">
+        <div class="slide-content-container">
+          <div class="legal-wrapper">
+            <span class="slide-badge">Slide 5: Terms System</span>
+            <div class="legal-header">
+              <h2>Terms of Service</h2>
+              <span style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-slate-400);">Version 1.0.0</span>
+            </div>
+
+            <div class="legal-scroll-content">
+              <div class="legal-callout" style="border-left-color: var(--color-slate-900); background-color: var(--color-slate-50); color: var(--color-slate-800);">
+                <strong>Disclaimer of Liability:</strong> Since Triflez does not host master directories or credential recovery systems, we cannot retrieve user data or recover Master Passwords. Hardware failures or credential loss is exclusively the responsibility of the system user.
+              </div>
+
+              <h3>1. General Acceptance</h3>
+              <p>
+                By instating or accessing our extension framework, you acknowledge and accept these Terms of Service. If you do not accept these rules, please immediately deactivate and remove the extension from your local environment.
+              </p>
+
+              <h3>2. Permitted Deployments</h3>
+              <p>
+                Triflez is distributed strictly for personal or business security usage. Reverse engineering corporate client keys, spoofing Drive endpoint variables, or launching malicious automated routines against Google security services is strictly prohibited.
+              </p>
+
+              <h3>3. Service Continuity</h3>
+              <p>
+                While we strive to maximize client performance, service availability depends heavily on Google Cloud Platform up-time guidelines, API availability, and browser requirements.
+              </p>
+
+              <h3>4. Governing Rules</h3>
+              <p>
+                These terms are governed by standard federal security regulations, and users hold ultimate accountability for their client environments.
+              </p>
+
+              <p>
+                Inquiries concerning policy exceptions or implementation requirements may be sent to <a href="mailto:support@triflez.com">support@triflez.com</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FLOATING SLIDEDECK NAV CONTROLS -->
+      <div class="deck-controls">
+        <div class="controls-brand">
+          <span>🔒 Triflez</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+          <span class="slide-num" id="slideIndicator">Slide 1 of 5</span>
+          <div class="dots-container" id="dotsContainer">
+            <!-- dots loaded dynamically -->
+          </div>
+        </div>
+
+        <div class="control-btns">
+          <button class="control-btn" id="prevBtn" onclick="prevSlide()">&larr; Previous</button>
+          <button class="control-btn" id="nextBtn" onclick="nextSlide()" style="background-color: var(--color-primary); border-color: var(--color-primary); color: white;">Next &rarr;</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- INTERACTIVE CONTROL SCRIPT -->
+    <script>
+      let currentSlide = 1;
+      const totalSlides = 5;
+
+      // Update slide display
+      function goToSlide(slideNum) {
+        if (slideNum < 1 || slideNum > totalSlides) return;
+        
+        currentSlide = slideNum;
+        
+        // Update URL hash safely while preventing scroll jumping on target elements
+        window.location.hash = `slide-${slideNum}`;
+
+        // Deactive previous active elements
+        document.querySelectorAll('.slide').forEach(s => {
+          s.classList.remove('active');
+        });
+
+        // Activate core slide
+        const targetSlide = document.getElementById(`slide-${slideNum}`);
+        if (targetSlide) {
+          targetSlide.classList.add('active');
+          // Reset slide position scroll to top internally
+          targetSlide.scrollTop = 0;
+        }
+
+        // Update controllers
+        document.getElementById('slideIndicator').textContent = `Slide ${slideNum} of ${totalSlides}`;
+        
+        // Update Prev Button state
+        document.getElementById('prevBtn').disabled = (slideNum === 1);
+        
+        // Update Next Button text at boundaries
+        const nextBtn = document.getElementById('nextBtn');
+        if (slideNum === totalSlides) {
+          nextBtn.textContent = 'Back to Start ↺';
+        } else {
+          nextBtn.innerHTML = 'Next &rarr;';
+        }
+
+        // Update dot states
+        document.querySelectorAll('.dot').forEach((dot, index) => {
+          if (index + 1 === slideNum) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+      }
+
+      function nextSlide() {
+        if (currentSlide === totalSlides) {
+          goToSlide(1);
+        } else {
+          goToSlide(currentSlide + 1);
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 1) {
+          goToSlide(currentSlide - 1);
+        }
+      }
+
+      // Initialize slide deck dots dynamically
+      const dotsContainer = document.getElementById('dotsContainer');
+      for (let i = 1; i <= totalSlides; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 1 ? ' active' : '');
+        dot.setAttribute('aria-label', `Navigate to slide ${i}`);
+        dot.addEventListener('click', () => {
+          goToSlide(i);
+        });
+        dotsContainer.appendChild(dot);
+      }
+
+      // Handle Key Navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+          if (document.activeElement && (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT')) return;
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+          if (document.activeElement && (document.activeElement.tagName === 'TEXTAREA' || document.activeElement.tagName === 'INPUT')) return;
+          e.preventDefault();
+          prevSlide();
+        }
+      });
+
+      // Synchronize with Hash location directly
+      function syncHash() {
+        const hash = window.location.hash;
+        if (hash) {
+          const matched = hash.match(/slide-(\d+)/);
+          if (matched && matched[1]) {
+            const num = parseInt(matched[1]);
+            if (num >= 1 && num <= totalSlides) {
+              goToSlide(num);
+            }
+          }
+        }
+      }
+      
+      window.addEventListener('hashchange', syncHash);
+      syncHash(); // Run once
+
+      // --- SIMULATED TOTP TIMER AND ROTATOR ---
+      const codeGoogle = document.getElementById('code-google');
+      const codeGithub = document.getElementById('code-github');
+      const codeDrive = document.getElementById('code-drive');
+      const countdownCircle = document.getElementById('countdownCircle');
+      const countdownTxt = document.getElementById('countdownTxt');
+
+      function generateRandomToken() {
+        const token = Math.floor(100000 + Math.random() * 900000).toString();
+        return token.substring(0, 3) + ' ' + token.substring(3, 6);
+      }
+
+      function cycleTokens() {
+        if (codeGoogle) codeGoogle.textContent = generateRandomToken();
+        if (codeGithub) codeGithub.textContent = generateRandomToken();
+        if (codeDrive) codeDrive.textContent = generateRandomToken();
+      }
+
+      let timeLeft = 30;
+      const originalStrokeDashOffsetMax = 62.8;
+
+      setInterval(() => {
+        timeLeft--;
+        if (timeLeft < 0) {
+          timeLeft = 30;
+          cycleTokens();
+        }
+
+        // Update numeric counter text
+        if (countdownTxt) countdownTxt.textContent = timeLeft;
+
+        // Update stroke-dashoffset for visual feedback
+        if (countdownCircle) {
+          const remainingPercentage = timeLeft / 30;
+          const newOffset = originalStrokeDashOffsetMax * (1 - remainingPercentage);
+          countdownCircle.style.strokeDashoffset = newOffset;
+        }
+      }, 1000);
+
+      // Trigger initial custom codes
+      cycleTokens();
+    </script>
+  </body>
+</html>

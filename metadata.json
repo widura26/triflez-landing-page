@@ -1,0 +1,6 @@
+{
+  "name": "Triflez Landing Page",
+  "description": "Secure 2FA Authenticator landing page and privacy policy for Triflez - OTP Code Generator Chrome Extension.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
