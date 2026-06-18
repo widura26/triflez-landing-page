@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="google-site-verification" content="gm9nPkjPdLZY7_0tptYI8AD_z23B04tBmC9jr7LJ5hI" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Triflez - OTP Code Generator Landing Deck</title>
     <!-- Poppins & JetBrains Mono Fonts -->
@@ -761,50 +760,19 @@
               </div>
             </div>
 
-            <div>
-              <!-- Simulator component representing the Extension Interface -->
-              <div class="simulator-card">
-                <div class="sim-header">
-                  <span>🔒 Triflez Chrome Applet</span>
-                  <div class="sim-sync-pill">● Connected: Google Drive</div>
-                </div>
-
-                <div class="sim-body">
-                  <div class="sim-row">
-                    <div class="sim-meta">
-                      <span class="sim-issuer">Google Cloud Admin</span>
-                      <span class="sim-account">oauth-verification</span>
-                    </div>
-                    <span class="sim-code" id="code-google">348 912</span>
-                  </div>
-
-                  <div class="sim-row">
-                    <div class="sim-meta">
-                      <span class="sim-issuer">GitHub Enterprise</span>
-                      <span class="sim-account">@triflez-developer</span>
-                    </div>
-                    <span class="sim-code" id="code-github">702 489</span>
-                  </div>
-
-                  <div class="sim-row">
-                    <div class="sim-meta">
-                      <span class="sim-issuer">Google Drive Sync</span>
-                      <span class="sim-account">Encrypted-Storage-Key</span>
-                    </div>
-                    <span class="sim-code" id="code-drive">116 830</span>
-                  </div>
-                </div>
-
-                <div class="sim-footer">
-                  <span>AES-256 Sealed Local Payload</span>
-                  <div class="sim-ticker">
-                    <svg>
-                      <circle class="bg" cx="11" cy="11" r="9"></circle>
-                      <circle class="bar" id="countdownCircle" cx="11" cy="11" r="9"></circle>
-                    </svg>
-                    <span class="sim-countdown" id="countdownTxt">30</span>
-                  </div>
-                </div>
+            <div style="display: flex; align-items: center; justify-content: center; height: 100%;">
+              <div class="logo-hero-container" style="background: #ffffff; padding: 3rem; border-radius: 2rem; border: 1px solid var(--color-slate-200); box-shadow: var(--shadow-lg), 0 25px 50px -12px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; width: 100%; max-width: 380px; aspect-ratio: 1; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <svg class="triflez-logo-svg" style="width: 100%; height: 100%; border-radius: 22%; display: block;" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <filter id="logo-shadow-hero" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#000000" flood-opacity="0.35" />
+                    </filter>
+                  </defs>
+                  <rect width="100" height="100" rx="22" fill="#000000" />
+                  <circle cx="34" cy="42" r="19" fill="#ffffff" />
+                  <circle cx="66" cy="42" r="19" fill="#ffffff" />
+                  <circle cx="50" cy="62" r="19" fill="#ffffff" filter="url(#logo-shadow-hero)" />
+                </svg>
               </div>
             </div>
           </div>
@@ -993,10 +961,6 @@
 
       <!-- FLOATING SLIDEDECK NAV CONTROLS -->
       <div class="deck-controls">
-        <div class="controls-brand">
-          <span>🔒 Triflez</span>
-        </div>
-
         <div style="display: flex; align-items: center; gap: 1.5rem;">
           <span class="slide-num" id="slideIndicator">Slide 1 of 5</span>
           <div class="dots-container" id="dotsContainer">
